@@ -1,12 +1,13 @@
 package main
 
 import (
+	_ "agriculture-api/db"
 	_ "agriculture-api/routers"
 	"agriculture-api/utils"
 	"github.com/astaxie/beego"
 )
 
-func init()  {
+func init() {
 	utils.CorsDomain()
 }
 
