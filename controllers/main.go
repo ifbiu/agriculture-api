@@ -10,7 +10,7 @@ type MainController struct {
 
 func (this *MainController) Get() {
 	this.Data["json"] = map[string]string{
-		"Welcome to": "agriculture-api",
+		"Welcome to": "agriculture-api~",
 		"Author":     "Candide",
 	}
 	this.ServeJSON()
