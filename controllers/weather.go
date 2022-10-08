@@ -45,7 +45,7 @@ func (this *WeatherController) Get() {
 	if city == "nofound" {
 		this.Data["json"] = map[string]string{
 			"code":  "500",
-			"error": "city is no found",
+			"error": "city is not found",
 		}
 		this.ServeJSON()
 		return
