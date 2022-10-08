@@ -20,3 +20,4 @@ log/
 
 # My setting
 go.sum
+conf/app.conf
