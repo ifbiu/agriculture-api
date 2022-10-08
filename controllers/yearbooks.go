@@ -8,7 +8,7 @@ type YearBooksController struct {
 
 func (this *YearBooksController) Get() {
 	this.Data["json"] = map[string]string{
-		"msg": "yearbooks",
+		"msg": "yearbooks~",
 	}
 	this.ServeJSON()
 }
