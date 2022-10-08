@@ -142,7 +142,7 @@ func switchCityToLocation(city string) string {
 		res = "101080811"
 	case "xilinguole":
 		res = "101080902"
-	case "hulunberer":
+	case "hulunbeier":
 		res = "101081013"
 	case "xinganmeng":
 		res = "101081108"

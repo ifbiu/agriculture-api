@@ -19,7 +19,7 @@ func SwitchChangeCity(city string) int {
 		res = 150800
 	case "xilinguole":
 		res = 152500
-	case "hulunberer":
+	case "hulunbeier":
 		res = 150700
 	case "xinganmeng":
 		res = 152200
