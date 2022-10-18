@@ -3,6 +3,7 @@ package controllers
 import (
 	"agriculture-api/logic/yearbooks"
 	"github.com/astaxie/beego"
+	"log"
 )
 
 type YearBooksController struct {
@@ -30,6 +31,7 @@ func (this *YearBooksController) Get() {
 	}
 	yearBooks, err := yearbooks.GetYearBooks(code)
 	if err != nil {
+		log.Println(err)
 		this.Data["json"] = map[string]string{
 			"code":  "500",
 			"error": "get yearbooks error",
