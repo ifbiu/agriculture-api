@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"agriculture-api/logic/login"
+	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/validation"
 )
@@ -21,17 +22,17 @@ func (this *LoginController) Post() {
 	defer this.ServeJSON()
 	valid := validation.Validation{}
 	user := User{}
-	user.UserName = this.GetString("username")
-	user.PassWord = this.GetString("password")
+	data := this.Ctx.Input.RequestBody
+	err := json.Unmarshal(data, &user)
 	valid.Required(user.UserName, "UserName").Message("用户名不能为空！")
 	valid.MaxSize(user.UserName, 16, "UserName").Message("用户名不能超过16位！")
 	valid.Required(user.PassWord, "PassWord").Message("密码不能为空！")
 	valid.MinSize(user.PassWord, 6, "PassWord").Message("密码最小6位！")
 	if valid.HasErrors() {
 		reJson["code"] = "500"
-		errMsg := []string{}
+		errMsg := ""
 		for _, error := range valid.Errors {
-			errMsg = append(errMsg, error.Message)
+			errMsg = error.Message + " "
 		}
 		reJson["msg"] = errMsg
 		return
