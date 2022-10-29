@@ -20,5 +20,5 @@ func init() {
 	beego.Router("/getPopulation", &controllers.PopulationController{})
 	beego.Router("/getFourData", &controllers.FourDataController{})
 	beego.Router("/login", &controllers.LoginController{})
-	beego.Router("/getYearBooksAll", &controllers.YearBooksController{})
+	beego.Router("/getYearBooksAll", &controllers.YearBooksAllController{})
 }

@@ -2,17 +2,37 @@ package controllers
 
 import (
 	"agriculture-api/logic/yearbooks"
+	"agriculture-api/utils"
+	"fmt"
 	"github.com/astaxie/beego"
 	"log"
 )
 
-type YearBooksController struct {
+type YearBooksAllController struct {
 	beego.Controller
 }
 
-func (this *YearBooksController) Get() {
+func (this *YearBooksAllController) Get() {
 	defer this.ServeJSON()
 	var city = this.GetString("city")
+	token := this.Ctx.Input.Header("Authorization")
+	if token == "" {
+		this.Data["json"] = map[string]string{
+			"code":  "500",
+			"error": "not find token !",
+		}
+		return
+	}
+	info, err := utils.ValidateToken(token)
+	if err != nil {
+		fmt.Println(err)
+		this.Data["json"] = map[string]string{
+			"code":  "500",
+			"error": "token is err !",
+		}
+		return
+	}
+	fmt.Println(info)
 	if city == "" {
 		this.Data["json"] = map[string]string{
 			"code":  "500",
@@ -28,7 +48,7 @@ func (this *YearBooksController) Get() {
 		}
 		return
 	}
-	yearBooks, err := yearbooks.GetYearBooks(code)
+	yearBooks, err := yearbooks.GetYearBooksAll(code)
 	if err != nil {
 		log.Println(err)
 		this.Data["json"] = map[string]string{

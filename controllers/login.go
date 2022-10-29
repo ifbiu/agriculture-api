@@ -2,7 +2,9 @@ package controllers
 
 import (
 	"agriculture-api/logic/login"
+	"agriculture-api/utils"
 	"encoding/json"
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/validation"
 )
@@ -59,6 +61,15 @@ func (this *LoginController) Post() {
 		reJson["msg"] = "密码错误！"
 		return
 	}
+	user1 := utils.User{"1", "candide"}
+	token, err := utils.GenerateToken(&user1, 0)
+	if err != nil {
+		fmt.Println(err)
+		reJson["code"] = "500"
+		reJson["msg"] = "token获取失败！"
+		return
+	}
 	reJson["code"] = "200"
 	reJson["msg"] = "登录成功"
+	reJson["token"] = token
 }
