@@ -27,7 +27,7 @@ func (this *YearBooksAllController) Get() {
 	if err != nil {
 		fmt.Println(err)
 		this.Data["json"] = map[string]string{
-			"code":  "500",
+			"code":  "403",
 			"error": "token is err !",
 		}
 		return
