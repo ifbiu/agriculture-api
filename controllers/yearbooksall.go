@@ -18,7 +18,7 @@ func (this *YearBooksAllController) Get() {
 	token := this.Ctx.Input.Header("Authorization")
 	if token == "" {
 		this.Data["json"] = map[string]string{
-			"code":  "500",
+			"code":  "403",
 			"error": "not find token !",
 		}
 		return
