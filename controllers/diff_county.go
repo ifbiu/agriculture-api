@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"agriculture-api/logic/yearbooks"
-	"agriculture-api/utils"
+	//"agriculture-api/utils"
 	"fmt"
 	"github.com/astaxie/beego"
 	"log"
@@ -16,23 +16,23 @@ func (this *DiffCountyController) Get() {
 	defer this.ServeJSON()
 	var county1 = this.GetString("county1")
 	var county2 = this.GetString("county2")
-	token := this.Ctx.Input.Header("Authorization")
-	if token == "" {
-		this.Data["json"] = map[string]string{
-			"code":  "403",
-			"error": "not find token !",
-		}
-		return
-	}
-	_, err := utils.ValidateToken(token)
-	if err != nil {
-		fmt.Println(err)
-		this.Data["json"] = map[string]string{
-			"code":  "403",
-			"error": "token is err !",
-		}
-		return
-	}
+	//token := this.Ctx.Input.Header("Authorization")
+	//if token == "" {
+	//	this.Data["json"] = map[string]string{
+	//		"code":  "403",
+	//		"error": "not find token !",
+	//	}
+	//	return
+	//}
+	//_, err := utils.ValidateToken(token)
+	//if err != nil {
+	//	fmt.Println(err)
+	//	this.Data["json"] = map[string]string{
+	//		"code":  "403",
+	//		"error": "token is err !",
+	//	}
+	//	return
+	//}
 	fmt.Println(county1)
 	fmt.Println(county2)
 	if county1 == "" {
