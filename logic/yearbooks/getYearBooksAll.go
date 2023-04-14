@@ -8,41 +8,25 @@ type YearBooksAllResult struct {
 	Population            string `json:"population"`
 	Gdp                   string `json:"gdp"`
 	GdpIncr               string `json:"gdp_incr"`
-	CultivatedArea        int    `json:"cultivated_area"`
+	CultivatedArea        string `json:"cultivated_area"`
 	CultivatedAreaIncr    string `json:"cultivated_area_incr"`
-	FarmlandArea          int    `json:"farmland_area"`
+	FarmlandArea          string `json:"farmland_area"`
 	FarmlandArea_incr     string `json:"farmland_area_incr"`
-	SownArea              int    `json:"sown_area"`
+	SownArea              string `json:"sown_area"`
 	SownAreaIncr          string `json:"sown_area_incr"`
 	SownAreaIncrSign      int    `json:"sown_area_incr_sign"`
-	GrainYield            int    `json:"grain_yield"`
+	GrainYield            string `json:"grain_yield"`
 	GrainYieldIncr        string `json:"grain_yield_incr"`
 	GrainYieldIncrSign    int    `json:"grain_yield_incr_sign"`
-	OilProduction         int    `json:"oil_production"`
+	OilProduction         string `json:"oil_production"`
 	OilProductionIncr     string `json:"oil_production_incr"`
 	OilProductionIncrSign int    `json:"oil_production_incr_sign"`
 }
 
 type YarBooksResponse struct {
 	Data struct {
-		Id                    int    `json:"id,omitempty"`
-		County                string `json:"county,omitempty"`
-		Population            string `json:"population,omitempty"`
-		Gdp                   string `json:"gdp,omitempty"`
-		GdpIncr               string `json:"gdp_incr,omitempty"`
-		CultivatedArea        int    `json:"cultivated_area,omitempty"`
-		CultivatedAreaIncr    string `json:"cultivated_area_incr,omitempty"`
-		FarmlandArea          int    `json:"farmland_area,omitempty"`
-		FarmlandAreaIncr      string `json:"farmland_area_incr,omitempty"`
-		SownArea              int    `json:"sown_area,omitempty"`
-		SownAreaIncr          string `json:"sown_area_incr,omitempty"`
-		SownAreaIncrSign      int    `json:"sown_area_incr_sign,omitempty"`
-		GrainYield            int    `json:"grain_yield,omitempty"`
-		GrainYieldIncr        string `json:"grain_yield_incr,omitempty"`
-		GrainYieldIncrSign    int    `json:"grain_yield_incr_sign,omitempty"`
-		OilProduction         int    `json:"oil_production,omitempty"`
-		OilProductionIncr     string `json:"oil_production_incr,omitempty"`
-		OilProductionIncrSign int    `json:"oil_production_incr_sign,omitempty"`
+		YearBooksAllResult
+		OilProductionIncrSign int `json:"oil_production_incr_sign"`
 	} `json:"data"`
 }
 
@@ -105,14 +89,7 @@ func fitterYearBooksAll(yearBooksResults []YearBooksAllResult) []YearBooksAllRes
 func UpdateYearBooks(postData YarBooksResponse) (bool, error) {
 	data := postData.Data
 	o := orm.NewOrm()
-	_, err := o.Raw("Update yearbooks SET county=?,population=?,"+
-		"gdp=?,gdp_incr=?,"+
-		"cultivated_area=?,cultivated_area_incr=?,"+
-		"farmland_area=?,farmland_area_incr=?,"+
-		"sown_area=?,sown_area_incr=?,"+
-		"grain_yield=?,grain_yield_incr=?,"+
-		"oil_production=?,oil_production_incr=? "+
-		"WHERE id=?",
+	_, err := o.Raw("Update yearbooks SET county=?,population=?,gdp=?,gdp_incr=?,cultivated_area=?,cultivated_area_incr=?,farmland_area=?,farmland_area_incr=?,sown_area=?,sown_area_incr=?,grain_yield=?,grain_yield_incr=?,oil_production=?,oil_production_incr=? WHERE id=?",
 		data.County,
 		data.Population,
 		data.Gdp,
@@ -120,7 +97,7 @@ func UpdateYearBooks(postData YarBooksResponse) (bool, error) {
 		data.CultivatedArea,
 		data.CultivatedAreaIncr,
 		data.FarmlandArea,
-		data.FarmlandAreaIncr,
+		data.FarmlandArea_incr,
 		data.SownArea,
 		data.SownAreaIncr,
 		data.GrainYield,

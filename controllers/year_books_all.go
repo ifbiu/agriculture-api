@@ -11,29 +11,6 @@ type YearBooksAllController struct {
 	beego.Controller
 }
 
-type PostResponse struct {
-	Data struct {
-		Id                      int    `json:"id"`
-		County                  string `json:"county"`
-		Population              string `json:"population"`
-		Gdp                     string `json:"gdp"`
-		GdpIncr                 string `json:"gdp_incr"`
-		CultivatedArea          int    `json:"cultivated_area"`
-		CultivatedAreaIncr      string `json:"cultivated_area_incr"`
-		FarmlandArea            int    `json:"farmland_area"`
-		FarmlandAreaIncr        string `json:"farmland_area_incr"`
-		SownArea                int
-		SownArea_incr           string
-		SownArea_incr_sign      int
-		GrainYield              int
-		GrainYield_incr         string
-		GrainYield_incr_sign    int
-		OilProduction           int
-		OilProduction_incr      string
-		OilProduction_incr_sign int
-	} `json:"data"`
-}
-
 func (this *YearBooksAllController) Get() {
 	defer this.ServeJSON()
 	var city = this.GetString("city")
