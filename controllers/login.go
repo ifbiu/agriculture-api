@@ -61,7 +61,7 @@ func (this *LoginController) Post() {
 		reJson["msg"] = "密码错误！"
 		return
 	}
-	user1 := utils.User{"1", "candide"}
+	user1 := utils.User{"1", user.UserName}
 	token, err := utils.GenerateToken(&user1, 0)
 	if err != nil {
 		fmt.Println(err)

@@ -23,6 +23,29 @@ type YearBooksAllResult struct {
 	OilProductionIncrSign int    `json:"oil_production_incr_sign"`
 }
 
+type YarBooksResponse struct {
+	Data struct {
+		Id                    int    `json:"id,omitempty"`
+		County                string `json:"county,omitempty"`
+		Population            string `json:"population,omitempty"`
+		Gdp                   string `json:"gdp,omitempty"`
+		GdpIncr               string `json:"gdp_incr,omitempty"`
+		CultivatedArea        int    `json:"cultivated_area,omitempty"`
+		CultivatedAreaIncr    string `json:"cultivated_area_incr,omitempty"`
+		FarmlandArea          int    `json:"farmland_area,omitempty"`
+		FarmlandAreaIncr      string `json:"farmland_area_incr,omitempty"`
+		SownArea              int    `json:"sown_area,omitempty"`
+		SownAreaIncr          string `json:"sown_area_incr,omitempty"`
+		SownAreaIncrSign      int    `json:"sown_area_incr_sign,omitempty"`
+		GrainYield            int    `json:"grain_yield,omitempty"`
+		GrainYieldIncr        string `json:"grain_yield_incr,omitempty"`
+		GrainYieldIncrSign    int    `json:"grain_yield_incr_sign,omitempty"`
+		OilProduction         int    `json:"oil_production,omitempty"`
+		OilProductionIncr     string `json:"oil_production_incr,omitempty"`
+		OilProductionIncrSign int    `json:"oil_production_incr_sign,omitempty"`
+	} `json:"data"`
+}
+
 func GetYearBooksAll(code int) ([]YearBooksAllResult, error) {
 	o := orm.NewOrm()
 	var yearBooksAllResult []YearBooksAllResult
@@ -77,4 +100,37 @@ func fitterYearBooksAll(yearBooksResults []YearBooksAllResult) []YearBooksAllRes
 		}
 	}
 	return yearBooksResults
+}
+
+func UpdateYearBooks(postData YarBooksResponse) (bool, error) {
+	data := postData.Data
+	o := orm.NewOrm()
+	_, err := o.Raw("Update yearbooks SET county=?,population=?,"+
+		"gdp=?,gdp_incr=?,"+
+		"cultivated_area=?,cultivated_area_incr=?,"+
+		"farmland_area=?,farmland_area_incr=?,"+
+		"sown_area=?,sown_area_incr=?,"+
+		"grain_yield=?,grain_yield_incr=?,"+
+		"oil_production=?,oil_production_incr=? "+
+		"WHERE id=?",
+		data.County,
+		data.Population,
+		data.Gdp,
+		data.GdpIncr,
+		data.CultivatedArea,
+		data.CultivatedAreaIncr,
+		data.FarmlandArea,
+		data.FarmlandAreaIncr,
+		data.SownArea,
+		data.SownAreaIncr,
+		data.GrainYield,
+		data.GrainYieldIncr,
+		data.OilProduction,
+		data.OilProductionIncr,
+		data.Id,
+	).Exec()
+	if err != nil {
+		return false, err
+	}
+	return true, nil
 }
